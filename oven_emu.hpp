@@ -1,25 +1,36 @@
+#ifndef __OVEN_EMU_HPP__
+#define __OVEN_EMU_HPP__
 
-oven_emu::oven_emu()
+#define VECTOR_SIZE  20
+#define MODES         3
+#define TEMP_OFFSET -15
+
+typedef enum ctrl_modes_e
 {
-   time_count = 0;
+   SLOW = 0,
+   NORMAL,
+   FAST,
+   OFF
+} ctrl_modes_t;
+   
 
-
-   response[0] = 0;
-   response[1] = 1;
-
-
-}
-
-oven_emu::read_temp()
+class oven_emu
 {
-   return response[time_count];
+   public:
+   oven_emu();
+   read_temp();
+   on();
+   off();
+   uint8_t getTarget(ctrl_modes_t mode, unsigned period);
 
-}
+   private:
+   uint8_t target_temp[MODES][VECTOR_SIZE];
 
-void oven_emu::on()
-{
-   time_count++;
-}
-void oven_emu::off()
-{
-}
+   // variables to emulate the following of the temp by oven
+   unsigned last_period;
+   unsigned period_interval;
+
+};
+
+
+#endif /* __OVEN_EMU_HPP__ */
