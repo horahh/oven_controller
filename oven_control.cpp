@@ -1,3 +1,4 @@
+#include "oven_control.hpp"
 
 oven_control::oven_control()
 {
@@ -6,8 +7,9 @@ oven_control::oven_control()
    period = 0;
 
 }
-oven_control::control(unsigned temp)
+void oven_control::control()
 {
+   uint8_t target_temp;
    if( OFF == mode )
    {
       return;
@@ -41,7 +43,7 @@ oven_control::control(unsigned temp)
    return;
 }
 
-oven_control::check_signals()
+void oven_control::check_signals()
 {
 
    if( true == on )
@@ -69,7 +71,7 @@ oven_control::check_signals()
 
 }
 
-oven_control::set_off()
+void oven_control::set_off()
 {
    on = false;
    slow = false;
@@ -78,15 +80,15 @@ oven_control::set_off()
    model.off();
 }
 
-oven_control::set_slow()
+void oven_control::set_slow()
 {
    slow = true;
 }
-oven_control::set_normal()
+void oven_control::set_normal()
 {
    normal = true;
 }
-oven_control::set_fast()
+void oven_control::set_fast()
 {
    normal = true;
 }

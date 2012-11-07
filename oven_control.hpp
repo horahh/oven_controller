@@ -11,16 +11,24 @@
 class oven_control
 {
    public:
+   oven_control();
    // this is done every minute
-   control();
-   signals(bool *on, bool *off, bool *slow, bool *normal, bool *fast);
+   void control();
+   void signals(bool *on, bool *off, bool *slow, bool *normal, bool *fast);
    // this is done every second
-   check_signals();
+   void check_signals();
 
 
    private:
+   //functions
+   void set_off();
+   void set_slow();
+   void set_normal();
+   void set_fast();
+
+
    // this is the oven modeled
-   oven_emu_t model;
+   oven_emu model;
    unsigned target_temp_array[TARGET_TMPS];
    unsigned time_counter;
    unsigned period;

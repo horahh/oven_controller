@@ -1,25 +1,25 @@
 
-#include <stdio.h>
 #include <time.h>
+#include <stdio.h>
+#include <unistd.h>
 #include "oven_emu.hpp"
 #include "oven_control.hpp"
 
 #define TIME_UNIT     1
 #define CONTROL_TIME 60
 
+// signals
+bool on;
+bool off;
+bool slow;
+bool normal;
+bool fast;
 
-int main(int argc, int **argv)
+int main(int argc, char **argv)
 {
-   oven_control_t oven_control;
-   oven_emu_t oven_emu;
-   unsigned temp = 0;
+   oven_control oven_control;
    unsigned counter = 0;
 
-   bool on;
-   bool off;
-   bool slow;
-   bool normal;
-   bool fast;
 
    // stablishing initial conditions
    on = true;
@@ -34,7 +34,7 @@ int main(int argc, int **argv)
    { 
       counter ++;
       oven_control.check_signals();
-      sleep(TIME_UNIT);
+      usleep(TIME_UNIT);
       if( CONTROL_TIME == counter )
       {
          // this will refresh oven temp lecture once every 5 minutes
